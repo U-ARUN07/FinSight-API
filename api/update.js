@@ -2,7 +2,10 @@ import fetch from "node-fetch";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(200).json({
+      success: true,
+      message: "FinSight API is running. Use POST /api/update to send data."
+    });
   }
 
   try {
@@ -11,9 +14,9 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing username or data" });
     }
 
-    const owner = "U-ARUN07";   // Your GitHub username
-    const repo = "FinSight";    // Your frontend repo
-    const token = process.env.GITHUB_TOKEN;  // Stored secretly on Vercel
+    const owner = "U-ARUN07"; // your GitHub username
+    const repo = "FinSight";  // your frontend repo
+    const token = process.env.GITHUB_TOKEN; // your PAT (from Vercel environment)
 
     const encodedData = Buffer.from(JSON.stringify(data, null, 2)).toString("base64");
 
